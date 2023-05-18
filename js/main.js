@@ -44,7 +44,64 @@ class Player {
   }
 }
 
-const player = new Player();
+class Obstacle {
+    constructor(){
+        this.positionX = 50;
+        this.positionY = 100;
+        this.width = 20;
+        this.height = 10;
+
+        this.domElement = null;
+
+        this.createDomElement();
+    }
+    createDomElement() {
+        // step1: create the element
+        this.domElement = document.createElement("div");
+
+        // step2: add content or modify (ex. innerHTML...)
+        this.domElement.className = "obstacle";
+        this.domElement.style.width = this.width + "vw";
+        this.domElement.style.height = this.height + "vh";
+        this.domElement.style.left = this.positionX + "vw";
+        this.domElement.style.bottom = this.positionY + "vh";
+
+        //step3: append to the dom: `parentElm.appendChild()`
+        const parentElm = document.getElementById("board");
+        parentElm.appendChild(this.domElement);
+    }
+    moveDown(){
+        this.positionY--;
+        this.domElement.style.bottom = this.positionY + "vh";
+    }
+}
+
+
+
+const player = new Player(); //an instance of the class Player. our player.
+
+
+const obstaclesArr = []; // this array will store instances of the class Obstacle
+                        //we put it outside teh methods below so that all can access it
+
+// Create new obstacles
+setInterval(() => {
+    const newObstacle = new Obstacle(); //new instance every 1000
+    console.log(newObstacle)
+    obstaclesArr.push(newObstacle);//want to push new instances into the osbstaclesArr above
+ }, 3000); //this is how often new obstacles appear from above, if changed, more/less obstacles
+ 
+ //dont nest intervals or timers WITH DIFFERENT TIMES IN THEM one inside each other
+
+ // Move all obstacles
+setInterval(() => {
+    obstaclesArr.forEach((obstacleInstance) => { //teh forEach loop will iterate within the array
+        obstacleInstance.moveDown();//because we have created the obstacleInstance function, now we can apply the method .moveDown()
+                                    // now we can move all obstacles            
+    });
+}, 60); //this is how often we move the obstacles
+ 
+
 
 
 
