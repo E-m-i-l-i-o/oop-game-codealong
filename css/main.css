@@ -1,3 +1,19 @@
 body {
+    margin: 0;
+    padding: 0;
     background-color: #ffe09c;
+}
+
+#board {
+    background-color: yellow;
+    height: 50px; 
+    /* relative units for responsive / pixels for non responsive design// = 100% of the vh = viewportsize */
+    height: 100vh;
+    position: relative; //defines that this container is teh point of reference for the player
+}
+
+#player {
+    background-color: blue;
+    position: absolute;
+   
 }
