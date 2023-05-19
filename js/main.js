@@ -1,9 +1,9 @@
 class Player {
   constructor() {
-    this.positionX = 50;
-    this.positionY = 0;
     this.width = 20;
-    this.height = 20;
+        this.height = 10;
+        this.positionX = 50 - this.width/2;
+        this.positionY = 0;
 
     this.domElement = null;//here we will store a reference to the DOM element ofthe player
 
@@ -15,7 +15,7 @@ class Player {
 
   createDomElement(){
     // step1: create the element
-    const this.domElement = document.createElement("div");
+     this.domElement = document.createElement("div");
 
     // step2: add content or modify (ex. innerHTML...)
     this.domElement.id = "player";
@@ -46,10 +46,10 @@ class Player {
 
 class Obstacle {
     constructor(){
-        this.positionX = 50;
-        this.positionY = 100;
         this.width = 20;
         this.height = 10;
+        this.positionX = 50 - this.width/2;
+        this.positionY = 100;
 
         this.domElement = null;
 
@@ -96,10 +96,31 @@ setInterval(() => {
  // Move all obstacles
 setInterval(() => {
     obstaclesArr.forEach((obstacleInstance) => { //teh forEach loop will iterate within the array
+        
         obstacleInstance.moveDown();//because we have created the obstacleInstance function, now we can apply the method .moveDown()
                                     // now we can move all obstacles            
-    });
-}, 60); //this is how often we move the obstacles
+   
+        if (obstacleInstance.positionX < player.positionX + player.width &&
+            obstacleInstance.positionX + obstacleInstance.width > player.positionX &&  //we move a new element and we check if there is a collision all wihtin the same loop
+            obstacleInstance.positionY < player.positionY + player.height &&
+            obstacleInstance.height + obstacleInstance.positionY > player.positionY) {
+            console.log("game over my fren");
+            //location.href = 'https://ironhack.com';// we can send teh player to a gameover page
+
+        }
+        //detect if obstacle needs to be removed once out of sight from the viewport. for that obstacle first needs to reach  the Y axis = 0 adn then we substract teh heigth of the obstacle, so taht it dissapears once we dont see it
+
+            if (obstacleInstance.positionY < 0 - obstacleInstance.height) {
+                            //1. remove from the array of obstacles
+
+
+                            //2. remove elm from the dom
+
+
+            }                            
+
+                                });
+}, 60); //this is how often we move the obstacles every 60 miliscs we move adn now we place inside the loop teh collision detector
  
 
 
@@ -119,3 +140,9 @@ document.addEventListener("keydown", (bananaEvent) => {
 });
 
 player.moveLeft();
+player.moveRight();
+
+
+
+
+
